@@ -1,0 +1,55 @@
+Description: >
+    S3 Bucket Creation using CloudFormation
+
+Parameters:
+    EnvironmentName:
+        Description: An environment name that will be prefixed to resource names
+        Type: String
+    S3BucketName:
+        Description: S3 Bucket Name
+        Type: String
+
+Resources:
+    S3Bucket:
+      Type: 'AWS::S3::Bucket'
+      Properties:
+        BucketName: !Ref S3BucketName
+
+    S3ReadOnlyRole:
+      Type: 'AWS::IAM::Role'
+      Properties:
+        AssumeRolePolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service: ec2.amazonaws.com
+              Action: sts:AssumeRole
+        Policies:
+          - PolicyName: S3ReadOnlyPolicy
+            PolicyDocument:
+              Version: '2012-10-17'
+              Statement:
+              - Effect: Allow
+                Action:
+                - s3:List*
+                Resource:
+                - !Sub arn:aws:s3:::${S3BucketName}
+              - Effect: Allow
+                Action:
+                - s3:Get*
+                Resource:
+                - !Sub arn:aws:s3:::${S3BucketName}/*
+
+Outputs:
+    BucketName: 
+        Description: S3 Bucket Name
+        Value: !Ref S3Bucket
+        Export:
+          Name: !Sub ${EnvironmentName}-BucketName
+    S3Role: 
+        Description: S3 Bucket Read Only Role
+        Value: !Ref S3ReadOnlyRole
+        Export:
+          Name: !Sub ${EnvironmentName}-S3ReadOnlyRole
+    

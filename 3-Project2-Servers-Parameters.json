@@ -1,0 +1,30 @@
+	[
+	{
+		"ParameterKey": "EnvironmentName",
+		"ParameterValue": "UdacityProject"
+	},
+	{
+		"ParameterKey": "AMItoUse",
+		"ParameterValue": "ami-0cfa91bdbc3be780c"
+	},
+	{
+		"ParameterKey": "InsType",
+		"ParameterValue": "t3.medium"
+	},
+	{
+		"ParameterKey": "AutoScaleMin",
+		"ParameterValue": "4"
+	},
+	{
+		"ParameterKey": "AutoScaleMax",
+		"ParameterValue": "6"
+	},
+	{
+		"ParameterKey": "KeyPair",
+		"ParameterValue": "Project2-KeyPair"
+	},
+	{
+		"ParameterKey": "EBS",
+		"ParameterValue": "10"
+	}
+]
